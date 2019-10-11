@@ -13,7 +13,11 @@ from django.forms.utils import ErrorList
 YOUTUBE_API_KEY = 'AIzaSyBFc9bREPF1-HIow5O1u-bRusLn_a2dkqg'
 
 def home(request):
-    return render(request, 'halls/home.html')
+    recent_halls = Hall.objects.all().order_by('-id')[:3]
+    # popular_halls = [Hall.objects.get(pk=1),Hall.objects.get(pk=2),Hall.objects.get(pk=3)]
+    return render(request, 'halls/home.html', {
+        'recent_halls': recent_halls,
+    })
 
 def dashboard(request):
     halls = Hall.objects.filter(user=request.user)
