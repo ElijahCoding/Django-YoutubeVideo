@@ -6,6 +6,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Hall, Video
 from .forms import VideoForm, SearchForm
+import urllib
+from django.forms.utils import ErrorList
+
+YOUTUBE_API_KEY = 'AIzaSyBFc9bREPF1-HIow5O1u-bRusLn_a2dkqg'
 
 def home(request):
     return render(request, 'halls/home.html')
@@ -25,11 +29,16 @@ def add_video(request, pk):
             video = Video()
             video.hall = hall
             video.url = filled_form.cleaned_data['url']
-            video.save()
+            parsed_url = urllib.parse.urlparse(video.url)
+            video_id = urllib.parse.parse_qs(parsed_url.query).get('v')
+            if video_id:
+                video.youtube_id = video_id[0]
+                video.save()
 
     return render(request, 'halls/add_video.html', {
         'form': form,
-        'search_form': search_form
+        'search_form': search_form,
+        'hall': hall
     })
 
 class SignUp(generic.CreateView):
