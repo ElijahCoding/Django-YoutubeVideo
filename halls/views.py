@@ -4,12 +4,20 @@ from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Hall
+from .forms import VideoForm
 
 def home(request):
     return render(request, 'halls/home.html')
 
 def dashboard(request):
     return render(request, 'halls/dashboard.html')
+
+def add_video(request, pk):
+    form = VideoForm()
+
+    return render(request, 'halls/add_video.html', {
+        'form': form
+    })
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm

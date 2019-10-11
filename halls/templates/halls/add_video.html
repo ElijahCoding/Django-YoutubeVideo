@@ -1,0 +1,11 @@
+{% extends 'halls/base.html' %}
+{% block content %}
+<div class="container">
+  <h2>Add Video to {{ hall.title }}</h2>
+  <form method="post" id="submit_video">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+</div>
+{% endblock %}
