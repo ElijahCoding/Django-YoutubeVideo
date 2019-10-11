@@ -35,7 +35,8 @@ class CreateHall(generic.CreateView):
         return redirect('home')
 
 class DetailHall(generic.DetailView):
-    pass
+    model = Hall
+    template_name = 'halls/detail_hall.html'
 
 class UpdateHall(generic.UpdateView):
     pass
