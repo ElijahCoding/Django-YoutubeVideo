@@ -1,11 +1,16 @@
 {% extends 'halls/base.html' %}
 {% block content %}
 <div class="container">
-  <h2>Add Video to {{ hall.title }}</h2>
-  <form method="post" id="submit_video">
+    <h2>Add Video to {{ hall.title }}</h2>
+    <form method="post" id="submit_video">
         {% csrf_token %}
         {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Add</button>
-  </form>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+    <br>
+    <h2>OR</h2>
+    <form>
+        {{ search_form.as_p }}
+    </form>
 </div>
 {% endblock %}
